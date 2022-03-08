@@ -600,7 +600,6 @@ dependencies = [
  "eui-no-std",
  "hkdf",
  "rand",
- "rand_core 0.5.1",
  "serde",
  "serde_bytes",
  "serde_cbor",
