@@ -1,0 +1,52 @@
+[package]
+name = "oscore"
+version = "0.1.0"
+authors = ["Martin Disch <martindisch@gmail.com>"]
+license = "MIT OR Apache-2.0"
+edition = "2018"
+readme = "README.md"
+
+[lib]
+doctest = false
+bench = false
+
+[dependencies]
+serde = { version = "1.0.97", default-features = false, features = ["derive", "alloc"] }
+serde_cbor = { version = "0.11.2", default-features = false, features = ["alloc"] }
+serde_bytes = { version = "0.11.1", default-features = false, features = ["alloc"] }
+x25519-dalek = { version = "1.2.0", default-features = false, features = ["u32_backend"] }
+rand_core = "0.5.1"
+eui-no-std = "0.3"
+
+sha2 = { version = "0.8.0", default-features = false }
+aes = "0.7.5"
+ccm = "0.4.4"
+hkdf = "0.8.0"
+digest = "0.8.1"
+rand = "*"
+coap-lite = { version = "0.3.0", default-features = false }
+
+[dev-dependencies]
+criterion = "0.3.0"
+
+[features]
+default = ["std"]
+std = [
+    "serde/std",
+    "serde_cbor/std",
+    "serde_bytes/std",
+    "x25519-dalek/std",
+    # Add this back in once it doesn't cause problems with thread_rng
+    # "ed25519-dalek/std",
+    "sha2/std",
+    "ccm/std",
+    "hkdf/std",
+    "digest/std",
+    "coap-lite/std",
+]
+# This disables replay protection, which is necessary for benchmarking
+no_replay = []
+
+[[bench]]
+name = "bench"
+harness = false
